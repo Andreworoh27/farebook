@@ -1,0 +1,43 @@
+:root {
+  /* font-family: "Titillium Web", sans-serif, Inter, system-ui, Avenir, Helvetica, Arial; */
+  font-family: "Titillium Web", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .authentication-form {
+    /* border: 1px solid; */
+    border: 1px solid transparent; /* transparent border */
+    border-radius: 10px; /* adjust for rounded corners */
+    box-shadow: 0 0 5px #c6c7c9; /* shadow properties */
+    width: 24rem;
+  }
+}
