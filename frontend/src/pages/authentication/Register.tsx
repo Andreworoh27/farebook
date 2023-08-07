@@ -1,5 +1,6 @@
 import Webtitle from "../../components/common/Webtitle";
 import RegisterForm from "../../components/authentication/RegisterForm";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
@@ -11,9 +12,9 @@ export default function Register() {
           <h4 className="text-center mb-4">it's quick and easy.</h4>
           <RegisterForm />
 
-          <a href="" className="flex-auto text-center my-2 text-sm text-[#275bbc]">
+          <Link to="/login" className="flex-auto text-center my-2 text-sm text-[#275bbc]">
             Already have an account?
-          </a>
+          </Link>
         </div>
       </div>
 
