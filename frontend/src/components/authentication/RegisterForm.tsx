@@ -2,32 +2,96 @@ import React, { useState } from "react";
 import DobForm from "./DobForm";
 import GenderForm from "./GenderForm";
 import CustomGender from "./CustomGenderForm";
+import { useMutation } from "@apollo/client";
+import { AddNewUserQuery } from "../../queries/Queries";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
+// interface NewUserProps {
+//   firstName: string;
+//   surName: string;
+//   email: string;
+//   mobileNumber: string;
+//   dob: string;
+//   gender: string;
+//   password: string;
+// }
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
-    firstname: "",
-    surname: "",
+    firstName: "",
+    surName: "",
     emailOrMobileNumber: "",
-    password: "",
-    dobComplete: "",
+    dob: "",
     dobMonth: (new Date().getMonth() + 1).toString(),
     dobDay: new Date().getDate().toString(),
     dobYear: new Date().getFullYear().toString(),
     gender: "",
+    password: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [addNewUser] = useMutation(AddNewUserQuery);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Here you can handle the form submission, e.g., send data to a server.
+
+    // Concatenate the dobYear, dobMonth, and dobDay fields to create the dob string
+    const dob = `${formData.dobYear}-${formData.dobMonth}-${formData.dobDay}`;
+
+    // Update the formData with the concatenated dob
+    setFormData((prevData) => ({
+      ...prevData,
+      dob: dob,
+    }));
+
+    try {
+      let inputUser = {
+        firstName: formData.firstName,
+        surName: formData.surName,
+        dob: formData.dob,
+        gender: formData.gender,
+        email: null as string | null, // Initialize email to null
+        mobileNumber: null as string | null, // Initialize mobileNumber to null
+        password: formData.password,
+      };
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{10,12}$/; // Matches 10 to 12 digit phone number
+
+      if (emailRegex.test(formData.emailOrMobileNumber)) {
+        inputUser.email = formData.emailOrMobileNumber;
+      } else if (phoneRegex.test(formData.emailOrMobileNumber)) {
+        inputUser.mobileNumber = formData.emailOrMobileNumber;
+      } else {
+        console.error("Invalid email/mobile number format");
+        return;
+      }
+
+      // Perform the mutation
+      const { data } = await addNewUser({
+        variables: {
+          inputUser: inputUser,
+        },
+      });
+
+      // Handle the response data as needed
+      console.log("New user added:", data.createUser);
+
+      // Redirect to login page
+      navigate("/login"); // Use navigate function to redirect
+    } catch (error) {
+      // Handle error if the mutation fails
+      console.error("Error adding new user:", error);
+    }
+
     console.log(formData);
   };
 
@@ -35,16 +99,16 @@ export default function RegisterForm() {
     <form onSubmit={handleSubmit} className="w-full flex flex-col">
       <div className="flex">
         <div>
-          <input type="text" name="firstname" value={formData.firstname} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] my-2 p-2 rounded-md" placeholder="First name" />
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] my-2 p-2 rounded-md" placeholder="First name" />
         </div>
 
         <div>
-          <input type="text" name="surname" value={formData.surname} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] m-2 p-2 rounded-md" placeholder="Surname" />
+          <input type="text" name="surName" value={formData.surName} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] m-2 p-2 rounded-md" placeholder="Surname" />
         </div>
       </div>
 
       <div>
-        <input type="email" name="emailOrMobileNumber" value={formData.emailOrMobileNumber} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] my-2 p-2" placeholder="Mobile number or email address" />
+        <input type="text" name="emailOrMobileNumber" value={formData.emailOrMobileNumber} onChange={handleChange} className="w-full border border-solid border-[#dfe0e3] my-2 p-2" placeholder="Mobile number or email address" />
       </div>
 
       <div>
