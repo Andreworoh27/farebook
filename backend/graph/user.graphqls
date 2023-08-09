@@ -1,0 +1,35 @@
+scalar Date
+
+type User {
+  id: ID!
+  firstName: String!
+  surName: String!
+  email: String
+  mobileNumber: String
+  dob: Date!
+  gender: String!
+}
+
+# type input untuk parameter
+input NewUser {
+  firstName: String!
+  surName: String!
+  email: String
+  mobileNumber: String
+  dob: Date!
+  gender: String!
+  password: String!
+}
+
+# query untuk get data
+type Query {
+  getUser(id: ID!): User!
+  getAllUsers: [User!]!
+}
+
+# mutation untuk ubah data
+type Mutation {
+  createUser(inputUser: NewUser!): User!
+  updateUser(id: ID!, inputUser: NewUser!): User!
+  deleteUser(id: ID!): User!
+}
