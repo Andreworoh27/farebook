@@ -45,7 +45,8 @@ func (r *queryResolver) GetUser(ctx context.Context, id string) (*model.User, er
 
 // GetAllUsers is the resolver for the getAllUsers field.
 func (r *queryResolver) GetAllUsers(ctx context.Context) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: GetAllUsers - getAllUsers"))
+	var users []*model.User
+	return users, r.DB.Find(&users).Error
 }
 
 // Mutation returns MutationResolver implementation.
