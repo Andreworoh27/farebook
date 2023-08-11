@@ -33,7 +33,7 @@ export default function RegisterForm() {
       to_email: formData.emailOrMobileNumber,
       to_name: formData.firstName + " " + formData.surName,
       from_name: "farebook",
-      message: "tes message",
+      message: "'http://127.0.0.1:5173/confirmEmail/",
       reply_to: formData.emailOrMobileNumber,
     };
 
@@ -49,62 +49,57 @@ export default function RegisterForm() {
 
   const [addNewUser] = useMutation(AddNewUserQuery);
   const navigate = useNavigate(); // Initialize useNavigate
-  var slesai = false;
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Concatenate the dobYear, dobMonth, and dobDay fields to create the dob string
+    const dob = `${formData.dobYear}-${formData.dobMonth}-${formData.dobDay}`;
 
-    if (slesai === true) {
-      // Concatenate the dobYear, dobMonth, and dobDay fields to create the dob string
-      const dob = `${formData.dobYear}-${formData.dobMonth}-${formData.dobDay}`;
+    // Update the formData with the concatenated dob
+    setFormData((prevData) => ({
+      ...prevData,
+      dob: dob,
+    }));
 
-      // Update the formData with the concatenated dob
-      setFormData((prevData) => ({
-        ...prevData,
-        dob: dob,
-      }));
+    try {
+      let inputUser = {
+        firstName: formData.firstName,
+        surName: formData.surName,
+        dob: formData.dob,
+        gender: formData.gender,
+        email: null as string | null, // Initialize email to null
+        mobileNumber: null as string | null, // Initialize mobileNumber to null
+        password: formData.password,
+      };
 
-      try {
-        let inputUser = {
-          firstName: formData.firstName,
-          surName: formData.surName,
-          dob: formData.dob,
-          gender: formData.gender,
-          email: null as string | null, // Initialize email to null
-          mobileNumber: null as string | null, // Initialize mobileNumber to null
-          password: formData.password,
-        };
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{10,12}$/; // Matches 10 to 12 digit phone number
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10,12}$/; // Matches 10 to 12 digit phone number
-
-        if (emailRegex.test(formData.emailOrMobileNumber)) {
-          inputUser.email = formData.emailOrMobileNumber;
-        } else if (phoneRegex.test(formData.emailOrMobileNumber)) {
-          inputUser.mobileNumber = formData.emailOrMobileNumber;
-        } else {
-          console.error("Invalid email/mobile number format");
-          return;
-        }
-
-        // Perform the mutation
-        const { data } = await addNewUser({
-          variables: {
-            inputUser: inputUser,
-          },
-        });
-
-        // Handle the response data as needed
-        console.log("New user added:", data.createUser);
-
-        SendEmail();
-        // Redirect to login page
-        navigate("/login"); // Use navigate function to redirect
-      } catch (error) {
-        // Handle error if the mutation fails
-        console.error("Error adding new user:", error);
+      if (emailRegex.test(formData.emailOrMobileNumber)) {
+        inputUser.email = formData.emailOrMobileNumber;
+      } else if (phoneRegex.test(formData.emailOrMobileNumber)) {
+        inputUser.mobileNumber = formData.emailOrMobileNumber;
+      } else {
+        console.error("Invalid email/mobile number format");
+        return;
       }
-    } else {
+
       SendEmail();
+
+      // // Perform the mutation
+      // const { data } = await addNewUser({
+      //   variables: {
+      //     inputUser: inputUser,
+      //   },
+      // });
+
+      // Handle the response data as needed
+      // console.log("New user added:", data.createUser);
+
+      // Redirect to login page
+      navigate("/login"); // Use navigate function to redirect
+    } catch (error) {
+      // Handle error if the mutation fails
+      console.error("Error adding new user:", error);
     }
     console.log(formData);
   };
