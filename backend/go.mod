@@ -4,9 +4,11 @@ go 1.20
 
 require (
 	github.com/99designs/gqlgen v0.17.36
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.5.1
 	github.com/vektah/gqlparser/v2 v2.5.8
+	golang.org/x/crypto v0.8.0
 	gorm.io/driver/postgres v1.5.2
 	gorm.io/gorm v1.25.2
 )
@@ -26,7 +28,6 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/urfave/cli/v2 v2.25.5 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	golang.org/x/crypto v0.8.0 // indirect
 	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/text v0.9.0 // indirect

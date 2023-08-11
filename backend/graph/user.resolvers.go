@@ -9,6 +9,7 @@ import (
 	"fmt"
 
 	"github.com/Andreworoh27/farebook/graph/model"
+	"github.com/Andreworoh27/farebook/service"
 	"github.com/google/uuid"
 )
 
@@ -35,6 +36,11 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, id string, inputUser 
 // DeleteUser is the resolver for the deleteUser field.
 func (r *mutationResolver) DeleteUser(ctx context.Context, id string) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: DeleteUser - deleteUser"))
+}
+
+// Login is the resolver for the login field.
+func (r *mutationResolver) Login(ctx context.Context, email string, password string) (interface{}, error) {
+	return service.UserLogin(ctx, email, password)
 }
 
 // GetUser is the resolver for the getUser field.
