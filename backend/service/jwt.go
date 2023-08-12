@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -29,4 +30,13 @@ func JwtGenerate(ctx context.Context, userID string) (string, error) {
 	}
 
 	return token, nil
+}
+
+func JwtValidate(ctx context.Context, token string) (*jwt.Token, error) {
+	return jwt.ParseWithClaims(token, &JwtCustom{}, func(t *jwt.Token) (interface{}, error) {
+		if _, success := t.Method.(*jwt.SigningMethodHMAC); !success {
+			return nil, fmt.Errorf("jwt token ngaco")
+		}
+		return jwtSecret, nil
+	})
 }

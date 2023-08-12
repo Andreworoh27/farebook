@@ -7,6 +7,7 @@ package graph
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/Andreworoh27/farebook/graph/model"
 	"github.com/Andreworoh27/farebook/service"
@@ -15,6 +16,14 @@ import (
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, inputUser model.NewUser) (*model.User, error) {
+	password, err := model.HashPassword(inputUser.Password)
+
+	if err != nil {
+		return nil, err
+	}
+
+	log.Println("hashed pw  : ", password)
+
 	user := &model.User{
 		ID:           uuid.NewString(),
 		FirstName:    inputUser.FirstName,
@@ -23,7 +32,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, inputUser model.NewUs
 		MobileNumber: inputUser.MobileNumber,
 		Dob:          inputUser.Dob,
 		Gender:       inputUser.Gender,
-		Password:     inputUser.Password,
+		Password:     password,
 	}
 	return user, r.DB.Save(&user).Error
 }
