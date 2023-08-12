@@ -8,6 +8,7 @@ import ErrorPage from "./pages/ErrorPage.tsx";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import GetAllUsersPage from "./components/common/GetAllUsersPage.tsx";
 import ConfirmEmailPage from "./pages/authentication/ConfirmEmailPage.tsx";
+import HomePage from "./pages/Homepage.tsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:7778/query",
@@ -17,6 +18,11 @@ const client = new ApolloClient({
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <HomePage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/errorPage",
     errorElement: <ErrorPage />,
   },
   {

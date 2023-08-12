@@ -27,3 +27,9 @@ export const AddNewUserQuery = gql`
     }
   }
 `;
+
+export const LoginQuery = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password)
+  }
+`;

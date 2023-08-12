@@ -19,6 +19,7 @@ export default function RegisterForm() {
     gender: "",
     password: "",
   });
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -48,7 +49,6 @@ export default function RegisterForm() {
   };
 
   const [addNewUser] = useMutation(AddNewUserQuery);
-  const navigate = useNavigate(); // Initialize useNavigate
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Concatenate the dobYear, dobMonth, and dobDay fields to create the dob string
@@ -61,6 +61,7 @@ export default function RegisterForm() {
     }));
 
     try {
+      // eslint-disable-next-line prefer-const
       let inputUser = {
         firstName: formData.firstName,
         surName: formData.surName,
@@ -85,15 +86,15 @@ export default function RegisterForm() {
 
       SendEmail();
 
-      // // Perform the mutation
-      // const { data } = await addNewUser({
-      //   variables: {
-      //     inputUser: inputUser,
-      //   },
-      // });
+      // Perform the mutation
+      const { data } = await addNewUser({
+        variables: {
+          inputUser: inputUser,
+        },
+      });
 
       // Handle the response data as needed
-      // console.log("New user added:", data.createUser);
+      console.log("New user added:", data.createUser);
 
       // Redirect to login page
       navigate("/login"); // Use navigate function to redirect

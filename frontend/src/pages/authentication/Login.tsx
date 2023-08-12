@@ -1,8 +1,19 @@
 import Webtitle from "../../components/common/Webtitle";
 import LoginForm from "../../components/authentication/LoginForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { checkAuthentication } from "../../utils/middleware";
 
 export default function Login() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    const token = localStorage.getItem("JwtToken");
+    if (token !== null && checkAuthentication(token)) {
+      navigate("/");
+    }
+  });
+
   return (
     <div className="bg-[#f0f2f5] h-screen w-screen pt-20">
       <div className="flex flex-col ">
