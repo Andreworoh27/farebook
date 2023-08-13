@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { checkAuthentication } from "../utils/middleware";
+import Navbar from "../components/common/Navbar";
 
 export default function HomePage() {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -12,5 +13,10 @@ export default function HomePage() {
     }
   });
 
-  return <div>homepage</div>;
+  return (
+    <div>
+      <Navbar />
+      homepage
+    </div>
+  );
 }

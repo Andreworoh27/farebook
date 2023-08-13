@@ -40,7 +40,7 @@ export default function LoginForm() {
     console.log(decoded);
     console.log(decodeJwtHeader(token));
 
-    navigate("/home");
+    navigate("/");
   };
 
   return (
