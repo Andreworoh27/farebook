@@ -41,3 +41,10 @@
     width: 24rem;
   }
 }
+
+/* Add this CSS to your main stylesheet */
+.flex-1 {
+  margin-top: 56px; /* Adjust this value based on your navbar height */
+  /* OR */
+  /* padding-top: 56px; Adjust this value based on your navbar height */
+}

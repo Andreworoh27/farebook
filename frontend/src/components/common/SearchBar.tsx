@@ -18,9 +18,9 @@ export default function SearchBar({ className }: SearchbarProps) {
   return (
     <div className={finalClassName}>
       <input
-        type="text"
+        type="text" 
         placeholder="Search..."
-        className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-300"
+        className="px-4 py-1 border border-gray-300 rounded-3xl shadow-sm focus:ring focus:ring-blue-300 w-60"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onKeyPress={handleKeyPress}

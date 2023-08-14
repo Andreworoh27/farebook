@@ -9,6 +9,7 @@ type User {
   mobileNumber: String
   dob: Date!
   gender: String!
+  profilePicture: String
 }
 
 # type input untuk parameter
@@ -20,6 +21,7 @@ input NewUser {
   dob: Date!
   gender: String!
   password: String!
+  profilePicture: String
 }
 
 # query untuk get data
