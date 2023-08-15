@@ -35,7 +35,7 @@ func UserLogin(ctx context.Context, email string, password string) (interface{},
 
 	log.Println("password correct")
 
-	token, err := JwtGenerate(ctx, user.ID)
+	token, err := JwtGenerate(ctx, user.UserId)
 	if err != nil {
 		log.Println("error generating token : ", err)
 		return nil, err

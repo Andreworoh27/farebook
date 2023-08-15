@@ -32,4 +32,9 @@ func GetInstance() *gorm.DB {
 func MigrateTable() {
 	db := GetInstance()
 	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Post{})
+	db.AutoMigrate(&model.Comment{})
+	db.AutoMigrate(&model.Friend{})
+	db.AutoMigrate(&model.PostTaggedUser{})
+	db.AutoMigrate(&model.PostVisibleFriends{})
 }

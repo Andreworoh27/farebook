@@ -1,0 +1,43 @@
+type Post {
+  postId: ID!
+  userId: ID!
+  vidio: String
+  photo: String
+  text: String
+  tagUsers: [User]
+  postDate: Date!
+  visibilityType: String!
+  visibleFriendsId: [PostVisibleFriends]
+  numberOfComments: Int!
+  numberOfShares: Int!
+  numberOfLikes: Int!
+  comment: [Comment]
+}
+
+# type input untuk parameter
+input NewPost {
+  userId: ID!
+  vidio: String
+  photo: String
+  text: String
+  tagUsersId: [ID]
+  postDate: Date!
+  visibilityType: String!
+  visibleFriendsId: [ID]
+  numberOfComments: Int!
+  numberOfShares: Int!
+  numberOfLikes: Int!
+}
+
+# query untuk get data
+extend type Query {
+  getPost(postId: ID!): Post!
+  getAllPost: [Post!]!
+}
+
+# mutation untuk ubah data
+extend type Mutation {
+  createPost(inputPost: NewPost!): Post!
+  updatePost(postId: ID!, inputPost: NewPost!): Post!
+  deletePost(id: ID!): Post!
+}

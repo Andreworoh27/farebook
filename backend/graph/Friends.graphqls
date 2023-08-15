@@ -1,0 +1,21 @@
+type Friend {
+  user: ID!
+  mutualUser: ID!
+}
+
+input NewFriend {
+  userID: ID!
+  mutualUserID: ID!
+}
+
+# query untuk get data
+extend type Query {
+  getUserFriends(userId: ID!): [Friend]!
+  getAllFriendsData: [Friend!]!
+}
+
+# mutation untuk ubah data
+extend type Mutation {
+  createFriend(inputFriend: NewFriend!): Friend!
+  deleteUserFriend(userId: ID!, mutualUserId: ID!): Friend!
+}

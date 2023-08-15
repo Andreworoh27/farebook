@@ -1,0 +1,39 @@
+type Comment {
+  commentId: ID!
+  post: ID!
+  commentUser: User!
+  text: String
+  photo: String
+  vidio: String
+  commentDate: Date!
+  numberOfComments: Int!
+  numberOfShares: Int!
+  numberOfLikes: Int!
+}
+
+# type input untuk parameter
+input NewComment {
+  postID: ID!
+  commentUserID: ID!
+  text: String
+  photo: String
+  vidio: String
+  commentDate: Date!
+  numberOfComments: Int!
+  numberOfShares: Int!
+  numberOfLikes: Int!
+}
+
+# query untuk get data
+extend type Query {
+  getPostComment(postId: ID!): [Comment]!
+  getCommentById(commentId: ID): Comment!
+  getAllComment: [Comment!]!
+}
+
+# mutation untuk ubah data
+extend type Mutation {
+  createComment(inputComment: NewComment!): Comment!
+  updateComment(commentId: ID!, inputComment: NewComment!): Comment!
+  deleteComment(commentId: ID!): Comment!
+}

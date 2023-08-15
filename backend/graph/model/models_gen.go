@@ -2,12 +2,54 @@
 
 package model
 
+type NewComment struct {
+	PostID           string  `json:"postID"`
+	CommentUserID    string  `json:"commentUserID"`
+	Text             *string `json:"text,omitempty"`
+	Photo            *string `json:"photo,omitempty"`
+	Vidio            *string `json:"vidio,omitempty"`
+	CommentDate      string  `json:"commentDate"`
+	NumberOfComments int     `json:"numberOfComments"`
+	NumberOfShares   int     `json:"numberOfShares"`
+	NumberOfLikes    int     `json:"numberOfLikes"`
+}
+
+type NewFriend struct {
+	UserID       string `json:"userID"`
+	MutualUserID string `json:"mutualUserID"`
+}
+
+type NewPost struct {
+	UserID           string    `json:"userId"`
+	Vidio            *string   `json:"vidio,omitempty"`
+	Photo            *string   `json:"photo,omitempty"`
+	Text             *string   `json:"text,omitempty"`
+	TagUsersID       []*string `json:"tagUsersId,omitempty"`
+	PostDate         string    `json:"postDate"`
+	VisibilityType   string    `json:"visibilityType"`
+	VisibleFriendsID []*string `json:"visibleFriendsId,omitempty"`
+	NumberOfComments int       `json:"numberOfComments"`
+	NumberOfShares   int       `json:"numberOfShares"`
+	NumberOfLikes    int       `json:"numberOfLikes"`
+}
+
+type NewPostTaggedUser struct {
+	PostID       string `json:"postId"`
+	TaggedUserID string `json:"taggedUserId"`
+}
+
+type NewPostVisibleFriends struct {
+	PostID          string `json:"postId"`
+	VisibleUserIDID string `json:"visibleUserIdId"`
+}
+
 type NewUser struct {
-	FirstName    string  `json:"firstName"`
-	SurName      string  `json:"surName"`
-	Email        *string `json:"email,omitempty"`
-	MobileNumber *string `json:"mobileNumber,omitempty"`
-	Dob          string  `json:"dob"`
-	Gender       string  `json:"gender"`
-	Password     string  `json:"password"`
+	FirstName      string  `json:"firstName"`
+	SurName        string  `json:"surName"`
+	Email          *string `json:"email,omitempty"`
+	MobileNumber   *string `json:"mobileNumber,omitempty"`
+	Dob            string  `json:"dob"`
+	Gender         string  `json:"gender"`
+	Password       string  `json:"password"`
+	ProfilePicture *string `json:"profilePicture,omitempty"`
 }

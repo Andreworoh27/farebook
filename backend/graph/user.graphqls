@@ -2,7 +2,7 @@ scalar Date
 scalar Any
 
 type User {
-  id: ID!
+  userid: ID!
   firstName: String!
   surName: String!
   email: String

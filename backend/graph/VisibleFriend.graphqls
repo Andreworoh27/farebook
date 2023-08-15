@@ -1,0 +1,23 @@
+type PostVisibleFriends {
+  post: Post!
+  visibleUserId: User!
+}
+
+# type input untuk parameter
+input NewPostVisibleFriends {
+  postId: ID!
+  visibleUserIdId: ID!
+}
+
+# query untuk get data
+extend type Query {
+  getPostVisibleFriends(postId: ID!): [PostVisibleFriends]!
+  getAllPostVisibleFriends: [PostVisibleFriends!]!
+}
+
+# mutation untuk ubah data
+extend type Mutation {
+  createPostVisibleFriends(inputPostVisibleFriends: NewPostVisibleFriends!): PostVisibleFriends!
+  deleteAllPostVisibleFriends(postId: ID!): PostVisibleFriends!
+  deleteSpesificPostVisibleFriends(postId: ID!, visibleUserId: ID!): PostVisibleFriends!
+}
