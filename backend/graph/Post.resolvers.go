@@ -9,11 +9,25 @@ import (
 	"fmt"
 
 	"github.com/Andreworoh27/farebook/graph/model"
+	"github.com/google/uuid"
 )
 
 // CreatePost is the resolver for the createPost field.
 func (r *mutationResolver) CreatePost(ctx context.Context, inputPost model.NewPost) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: CreatePost - createPost"))
+	post := &model.Post{
+		PostID:           uuid.NewString(),
+		UserID:           inputPost.UserID,
+		Vidio:            inputPost.Vidio,
+		Photo:            inputPost.Photo,
+		Text:             inputPost.Text,
+		PostDate:         inputPost.PostDate,
+		VisibilityType:   inputPost.VisibilityType,
+		NumberOfComments: inputPost.NumberOfComments,
+		NumberOfShares:   inputPost.NumberOfShares,
+		NumberOfLikes:    inputPost.NumberOfLikes,
+	}
+
+	return post, r.DB.Save(&post).Error
 }
 
 // UpdatePost is the resolver for the updatePost field.
@@ -28,7 +42,8 @@ func (r *mutationResolver) DeletePost(ctx context.Context, id string) (*model.Po
 
 // GetPost is the resolver for the getPost field.
 func (r *queryResolver) GetPost(ctx context.Context, postID string) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: GetPost - getPost"))
+	var post *model.Post
+	return post, r.DB.First(&post, "post_id = ?", postID).Error
 }
 
 // GetAllPost is the resolver for the getAllPost field.

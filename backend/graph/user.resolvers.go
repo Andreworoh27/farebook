@@ -55,7 +55,7 @@ func (r *mutationResolver) Login(ctx context.Context, email string, password str
 // GetUser is the resolver for the getUser field.
 func (r *queryResolver) GetUser(ctx context.Context, id string) (*model.User, error) {
 	var user *model.User
-	return user, r.DB.First(&user, "id = ?", id).Error
+	return user, r.DB.First(&user, "user_id = ?", id).Error
 }
 
 // GetAllUsers is the resolver for the getAllUsers field.
