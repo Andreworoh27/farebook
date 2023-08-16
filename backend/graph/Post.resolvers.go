@@ -35,3 +35,13 @@ func (r *queryResolver) GetPost(ctx context.Context, postID string) (*model.Post
 func (r *queryResolver) GetAllPost(ctx context.Context) ([]*model.Post, error) {
 	panic(fmt.Errorf("not implemented: GetAllPost - getAllPost"))
 }
+
+// GetPostVisibleFriends is the resolver for the getPostVisibleFriends field.
+func (r *queryResolver) GetPostVisibleFriends(ctx context.Context, postID string) ([]*model.User, error) {
+	panic(fmt.Errorf("not implemented: GetPostVisibleFriends - getPostVisibleFriends"))
+}
+
+// GetPostTaggedUsers is the resolver for the getPostTaggedUsers field.
+func (r *queryResolver) GetPostTaggedUsers(ctx context.Context, postID string) ([]*model.User, error) {
+	panic(fmt.Errorf("not implemented: GetPostTaggedUsers - getPostTaggedUsers"))
+}

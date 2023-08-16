@@ -20,27 +20,15 @@ type NewFriend struct {
 }
 
 type NewPost struct {
-	UserID           string    `json:"userId"`
-	Vidio            *string   `json:"vidio,omitempty"`
-	Photo            *string   `json:"photo,omitempty"`
-	Text             *string   `json:"text,omitempty"`
-	TagUsersID       []*string `json:"tagUsersId,omitempty"`
-	PostDate         string    `json:"postDate"`
-	VisibilityType   string    `json:"visibilityType"`
-	VisibleFriendsID []*string `json:"visibleFriendsId,omitempty"`
-	NumberOfComments int       `json:"numberOfComments"`
-	NumberOfShares   int       `json:"numberOfShares"`
-	NumberOfLikes    int       `json:"numberOfLikes"`
-}
-
-type NewPostTaggedUser struct {
-	PostID       string `json:"postId"`
-	TaggedUserID string `json:"taggedUserId"`
-}
-
-type NewPostVisibleFriends struct {
-	PostID          string `json:"postId"`
-	VisibleUserIDID string `json:"visibleUserIdId"`
+	UserID           string  `json:"userId"`
+	Vidio            *string `json:"vidio,omitempty"`
+	Photo            *string `json:"photo,omitempty"`
+	Text             *string `json:"text,omitempty"`
+	PostDate         string  `json:"postDate"`
+	VisibilityType   string  `json:"visibilityType"`
+	NumberOfComments int     `json:"numberOfComments"`
+	NumberOfShares   int     `json:"numberOfShares"`
+	NumberOfLikes    int     `json:"numberOfLikes"`
 }
 
 type NewUser struct {

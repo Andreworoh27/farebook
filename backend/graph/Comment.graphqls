@@ -1,7 +1,7 @@
 type Comment {
   commentId: ID!
-  post: ID!
-  commentUser: User!
+  postID: ID!
+  commentUser: ID!
   text: String
   photo: String
   vidio: String

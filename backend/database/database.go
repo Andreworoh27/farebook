@@ -35,6 +35,4 @@ func MigrateTable() {
 	db.AutoMigrate(&model.Post{})
 	db.AutoMigrate(&model.Comment{})
 	db.AutoMigrate(&model.Friend{})
-	db.AutoMigrate(&model.PostTaggedUser{})
-	db.AutoMigrate(&model.PostVisibleFriends{})
 }

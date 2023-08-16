@@ -11,6 +11,10 @@ type User struct {
 	Dob          string  `json:"dob"`
 	Gender       string  `json:"gender"`
 	Password     string  `json:"password"`
+
+	// Friends  []Friend  `gorm:"foreignKey:User"`
+	// Posts    []Post    `gorm:"foreignKey:UserID"`
+	// Comments []Comment `gorm:"foreignKey:CommentUser"`
 }
 
 func HashPassword(password string) (string, error) {
