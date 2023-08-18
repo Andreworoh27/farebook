@@ -84,20 +84,19 @@ export default function RegisterForm() {
         return;
       }
 
-      SendEmail();
-
       // Perform the mutation
       const { data } = await addNewUser({
         variables: {
           inputUser: inputUser,
         },
       });
-
-      // Handle the response data as needed
-      console.log("New user added:", data.createUser);
-
-      // Redirect to login page
-      navigate("/login"); // Use navigate function to redirect
+      if (data) {
+        SendEmail();
+        // Handle the response data as needed
+        console.log("New user added:", data.createUser);
+        // Redirect to login page
+        navigate("/login"); // Use navigate function to redirect
+      }
     } catch (error) {
       // Handle error if the mutation fails
       console.error("Error adding new user:", error);

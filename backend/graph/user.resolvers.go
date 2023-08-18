@@ -64,20 +64,11 @@ func (r *queryResolver) GetAllUsers(ctx context.Context) ([]*model.User, error) 
 	return users, r.DB.Find(&users).Error
 }
 
-// ProfilePicture is the resolver for the profilePicture field.
-func (r *userResolver) ProfilePicture(ctx context.Context, obj *model.User) (*string, error) {
-	panic(fmt.Errorf("not implemented: ProfilePicture - profilePicture"))
-}
-
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
-// User returns UserResolver implementation.
-func (r *Resolver) User() UserResolver { return &userResolver{r} }
-
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
-type userResolver struct{ *Resolver }

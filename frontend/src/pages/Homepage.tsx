@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { checkAuthentication } from "../utils/middleware";
 import Navbar from "../components/common/Navbar";
 import ProfileSection from "../components/Home/ProfileSection";
+import UploadPostComponent from "../components/Home/UploadPostComponent";
 
 export default function HomePage() {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -15,7 +16,7 @@ export default function HomePage() {
   });
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen bg-[#f0f2f5]">
       <Navbar />
       <div className="flex-1 overflow-y-hidden flex">
         {/* profile section */}
@@ -24,7 +25,9 @@ export default function HomePage() {
         </div>
 
         {/* feeds section */}
-        <div className="flex-grow"></div>
+        <div className="flex flex-col items-center flex-grow pt-7">
+          <UploadPostComponent />
+        </div>
 
         {/* friends pages section */}
         <div className="w-80 "></div>

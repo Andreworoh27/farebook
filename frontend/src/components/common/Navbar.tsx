@@ -2,8 +2,8 @@ import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   return (
-    <div className="w-full flex flex-row items-center border py-2 bg-white fixed top-0 shadow-md z-10">
-      <img src="../../../public/assets/2021_Facebook_icon.png" alt="" className="w-9 h-9 mx-5" />
+    <div className="w-full flex flex-row items-center border py-1 bg-white fixed top-0 shadow-md z-10">
+      <img src="../../../public/assets/2021_Facebook_icon.png" alt="" className="w-10 h-10 mx-5" />
       <SearchBar className="mr-5" />
       <div className="w-2/5 mx-auto justify-self-center flex flex-row items-center justify-around">
         <a href="#" className="p-2 w-24 flex justify-center align-middle">

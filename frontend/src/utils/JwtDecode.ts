@@ -2,7 +2,7 @@ import jwt_decode, { JwtHeader, JwtPayload } from "jwt-decode";
 
 export interface DecodedToken extends JwtPayload {
   // Add any custom claims you expect in the JWT payload
-  userId: string;
+  id: string;
 }
 
 export function decodeJwtToken(token: string): DecodedToken {
