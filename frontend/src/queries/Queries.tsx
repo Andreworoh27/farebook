@@ -65,3 +65,20 @@ export const GetPostQuery = gql`
     }
   }
 `;
+
+export const GetAllPublicPostQuery = gql`
+  query GetAllPublicPost {
+    getAllPublicPost {
+      postId
+      userId
+      vidio
+      photo
+      text
+      postDate
+      visibilityType
+      numberOfLikes
+      numberOfShares
+      numberOfComments
+    }
+  }
+`;

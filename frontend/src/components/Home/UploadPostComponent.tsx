@@ -1,21 +1,18 @@
 import { Link } from "react-router-dom";
-import { GetUserQuery } from "../../queries/Queries";
-import { decodeJwtToken } from "../../utils/JwtDecode";
-import { useQuery } from "@apollo/client";
+import PropTypes from "prop-types"; // Import PropTypes
 
-export default function UploadPostComponent() {
-  const userId = decodeJwtToken(localStorage.getItem("JwtToken")!).id;
+interface User {
+  firstName: string; 
+  // Add other properties here as needed
+}
 
-  console.log(userId);
-  const { loading, error, data } = useQuery(GetUserQuery, {
-    variables: { id: userId },
-  });
+interface UploadPostComponentProps {
+  user: User | null; // Define the type of 'user'
+}
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-  if (data) console.log(data);
+export default function UploadPostComponent({ user }: UploadPostComponentProps) {
+  const firstName = user ? user.firstName : "";
 
-  const firstName = data.getUser.firstName;
   return (
     <div className="flex flex-col w-4/5  h-28 border rounded-xl justify-center bg-white shadow-sm">
       <div className="flex h-1/2 p-2 items-center justify-evenly">
@@ -42,3 +39,11 @@ export default function UploadPostComponent() {
     </div>
   );
 }
+
+// Define the PropTypes
+UploadPostComponent.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    // Add other PropTypes for user properties as needed
+  }),
+};

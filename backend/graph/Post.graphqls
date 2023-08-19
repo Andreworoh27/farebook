@@ -27,6 +27,8 @@ input NewPost {
 # query untuk get data
 extend type Query {
   getPost(postId: ID!): Post!
+  getUserPost(userId: ID!): [Post]!
+  getAllPublicPost: [Post]!
   getAllPost: [Post!]!
   getPostVisibleFriends(postId: ID!): [User]!
   getPostTaggedUsers(postId: ID!): [User]!

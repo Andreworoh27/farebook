@@ -46,6 +46,18 @@ func (r *queryResolver) GetPost(ctx context.Context, postID string) (*model.Post
 	return post, r.DB.First(&post, "post_id = ?", postID).Error
 }
 
+// GetUserPost is the resolver for the getUserPost field.
+func (r *queryResolver) GetUserPost(ctx context.Context, userID string) ([]*model.Post, error) {
+	var UserPost []*model.Post
+	return UserPost, r.DB.Find(&UserPost, "user_id = ?", userID).Error
+}
+
+// GetAllPublicPost is the resolver for the getAllPublicPost field.
+func (r *queryResolver) GetAllPublicPost(ctx context.Context) ([]*model.Post, error) {
+	var publicPost []*model.Post
+	return publicPost, r.DB.Find(&publicPost, "visibility_type = ?","Public").Error
+}
+
 // GetAllPost is the resolver for the getAllPost field.
 func (r *queryResolver) GetAllPost(ctx context.Context) ([]*model.Post, error) {
 	panic(fmt.Errorf("not implemented: GetAllPost - getAllPost"))
