@@ -23,14 +23,14 @@ export default function PostComponent() {
 
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log(data.getAllPublicPost);
+  // console.log(data.getAllPublicPost);
   // Check if data.posts exists and is an array
   if (!data) {
     return <p>No posts available.</p>;
   }
 
   const posts: Post[] = data.getAllPublicPost;
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <div className="mt-3 w-full flex flex-col items-center">
@@ -68,7 +68,7 @@ export default function PostComponent() {
             {post.photo != null && (
               <div>
                 {/* Conditionally render the photo */}
-                <img src={post.photo} alt="post photo" className="w-full" />
+                <img src={post.photo} alt="post photo" className="w-fit h-fit object-cover p-4" />
               </div>
             )}
           </div>

@@ -8,9 +8,10 @@ import { useQuery } from "@apollo/client";
 import { GetUserQuery } from "../queries/Queries";
 import UploadPostComponent from "../components/Home/UploadPostComponent";
 import PostComponent from "../components/Home/PostComponent";
+import Modal from "react-modal";
 
 interface User {
-  id: string;
+  userid: string;
   firstName: string;
   surName: string;
   email: string;
@@ -20,6 +21,8 @@ interface User {
   gender: string;
 }
 
+Modal.setAppElement("#root"); // Assuming "#root" is the ID of your root element
+
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -28,7 +31,7 @@ export default function HomePage() {
 
   // Fetch user data
   const userId = token ? decodeJwtToken(token).id : null;
-  console.log("id : ", userId);
+  // console.log("id : ", userId);
   const {
     loading: userLoading,
     error: userError,
@@ -75,7 +78,7 @@ export default function HomePage() {
           <ProfileSection />
         </div>
 
-        <div className="flex flex-col items-center flex-grow pt-7">
+        <div className="flex flex-col items-center flex-grow pt-7 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
           <UploadPostComponent user={userData} />
           <PostComponent />
         </div>

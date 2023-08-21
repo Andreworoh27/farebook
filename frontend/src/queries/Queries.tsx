@@ -82,3 +82,19 @@ export const GetAllPublicPostQuery = gql`
     }
   }
 `;
+
+export const AddNewPostQuery = gql`
+  mutation createNewPost($inputPost: NewPost!) {
+    createPost(inputPost: $inputPost) {
+      userId
+      vidio
+      photo
+      text
+      postDate
+      visibilityType
+      numberOfComments
+      numberOfShares
+      numberOfLikes
+    }
+  }
+`;
