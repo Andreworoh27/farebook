@@ -32,7 +32,21 @@ func (r *mutationResolver) CreatePost(ctx context.Context, inputPost model.NewPo
 
 // UpdatePost is the resolver for the updatePost field.
 func (r *mutationResolver) UpdatePost(ctx context.Context, postID string, inputPost model.NewPost) (*model.Post, error) {
-	panic(fmt.Errorf("not implemented: UpdatePost - updatePost"))
+	var post *model.Post
+	if err := r.DB.First(&post, "post_id = ?", postID).Error; err != nil {
+		return nil, err
+	}
+
+	post.Vidio = inputPost.Vidio
+	post.Photo = inputPost.Photo
+	post.Text = inputPost.Text
+	post.PostDate = inputPost.PostDate
+	post.VisibilityType = inputPost.VisibilityType
+	post.NumberOfComments = inputPost.NumberOfComments
+	post.NumberOfLikes = inputPost.NumberOfLikes
+	post.NumberOfShares = inputPost.NumberOfShares
+
+	return post, r.DB.Save(&post).Error
 }
 
 // DeletePost is the resolver for the deletePost field.
@@ -55,7 +69,7 @@ func (r *queryResolver) GetUserPost(ctx context.Context, userID string) ([]*mode
 // GetAllPublicPost is the resolver for the getAllPublicPost field.
 func (r *queryResolver) GetAllPublicPost(ctx context.Context) ([]*model.Post, error) {
 	var publicPost []*model.Post
-	return publicPost, r.DB.Find(&publicPost, "visibility_type = ?","Public").Error
+	return publicPost, r.DB.Find(&publicPost, "visibility_type = ?", "Public").Error
 }
 
 // GetAllPost is the resolver for the getAllPost field.

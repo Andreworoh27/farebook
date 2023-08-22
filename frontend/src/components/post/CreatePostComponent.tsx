@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import VisibilitySelectorComponent from "./VisibilitySelectorComponent";
 import { useMutation } from "@apollo/client";
 import { AddNewPostQuery } from "../../queries/Queries";
-import { useNavigate } from "react-router-dom";
 
 interface User {
   userid: string;
@@ -18,6 +17,7 @@ interface User {
 
 interface UploadPostComponentProps {
   user: User | null;
+  closeModal: () => void;
 }
 
 interface PostData {
@@ -32,13 +32,29 @@ interface PostData {
   numberOfLikes: number;
 }
 
-export default function CreatePostComponent({ user }: UploadPostComponentProps) {
+export default function CreatePostComponent({ user, closeModal }: UploadPostComponentProps) {
+  function getCurrentDateTime(): string {
+    const now = new Date();
+
+    // Extract date and time components
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+
+    // Format the components into "dd-mm-yyyy hh:mm" format
+    const formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes}`;
+
+    return formattedDateTime;
+  }
+
   const initialPostData: PostData = {
     userId: user!.userid,
     vidio: null,
     photo: null,
     text: "",
-    postDate: new Date().toISOString(),
+    postDate: getCurrentDateTime(),
     visibilityType: "",
     numberOfComments: 0,
     numberOfShares: 0,
@@ -127,7 +143,6 @@ export default function CreatePostComponent({ user }: UploadPostComponentProps) 
   };
 
   const [addNewPost] = useMutation(AddNewPostQuery);
-  const navigate = useNavigate(); // Initialize useNavigate
 
   const handlePostClick = async () => {
     try {
@@ -163,7 +178,7 @@ export default function CreatePostComponent({ user }: UploadPostComponentProps) 
 
         if (data) {
           console.log(data);
-          navigate("/");
+          closeModal();
         }
       } else {
         console.error("please add a text, photo, or a vidio before posting");

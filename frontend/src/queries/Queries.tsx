@@ -98,3 +98,40 @@ export const AddNewPostQuery = gql`
     }
   }
 `;
+
+export const LikePostQuery = gql`
+  mutation likePost($newLike: NewLike!) {
+    createLikePost(newLike: $newLike) {
+      likeId
+      postId
+      userId
+    }
+  }
+`;
+
+export const UpdatePostQuery = gql`
+  mutation UpdatePost($postId: ID!, $inputPost: NewPost!) {
+    updatePost(postId: $postId, inputPost: $inputPost) {
+      postId
+      userId
+      vidio
+      photo
+      text
+      postDate
+      visibilityType
+      numberOfComments
+      numberOfShares
+      numberOfLikes
+    }
+  }
+`;
+
+export const DeleteLikePostQuery = gql`
+  mutation deleteLikePost($likeId: ID!) {
+    deleteLikePost(likeId: $likeId) {
+      likeId
+      userId
+      postId
+    }
+  }
+`;

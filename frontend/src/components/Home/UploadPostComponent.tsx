@@ -2,6 +2,7 @@ import PropTypes from "prop-types"; // Import PropTypes
 import Modal from "react-modal";
 import { useState } from "react";
 import CreatePostComponent from "../post/CreatePostComponent";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   userid: string;
@@ -26,9 +27,12 @@ export default function UploadPostComponent({ user }: UploadPostComponentProps) 
     setIsModalOpen(true);
   };
 
+  const navigate = useNavigate();
+
   // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
+    navigate("/");
   };
 
   const firstName = user ? user.firstName : "";
@@ -45,7 +49,7 @@ export default function UploadPostComponent({ user }: UploadPostComponentProps) 
           </div>
         </div>
         <div className="border my-2"></div>
-        <CreatePostComponent user={user} />
+        <CreatePostComponent user={user} closeModal={closeModal} />
       </Modal>
 
       <div className="flex h-1/2 p-2 items-center justify-evenly">

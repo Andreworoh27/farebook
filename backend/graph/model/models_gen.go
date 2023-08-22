@@ -19,6 +19,11 @@ type NewFriend struct {
 	MutualUserID string `json:"mutualUserID"`
 }
 
+type NewLike struct {
+	PostID string `json:"postId"`
+	UserID string `json:"userId"`
+}
+
 type NewPost struct {
 	UserID           string  `json:"userId"`
 	Vidio            *string `json:"vidio,omitempty"`

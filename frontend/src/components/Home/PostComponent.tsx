@@ -1,6 +1,5 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
-import { GetAllPublicPostQuery } from "../../queries/Queries";
+import { GetAllPublicPostQuery, GetUserQuery } from "../../queries/Queries";
 import { Link } from "react-router-dom";
 
 interface Post {
@@ -16,14 +15,17 @@ interface Post {
   numberOfComments: number;
 }
 
-export default function PostComponent() {
+interface PostComponentProps {
+  likePost: (currentPost: Post) => void;
+}
+
+export default function PostComponent(props: PostComponentProps) {
   const { loading, error, data } = useQuery(GetAllPublicPostQuery);
 
   if (loading) return <p>Loading...</p>;
 
   if (error) return <p>Error: {error.message}</p>;
 
-  // console.log(data.getAllPublicPost);
   // Check if data.posts exists and is an array
   if (!data) {
     return <p>No posts available.</p>;
@@ -35,7 +37,7 @@ export default function PostComponent() {
   return (
     <div className="mt-3 w-full flex flex-col items-center">
       {posts.map((post) => (
-        <div key={post.postId} className="flex flex-col w-4/5 h-fit border rounded-xl justify-center bg-white shadow-sm flex flex-col my-3 p-3">
+        <div key={post.postId} className="flex flex-col w-4/5 h-fit border rounded-xl justify-center bg-white shadow-sm my-3 p-3">
           <div className="flex justify-start items-center">
             <Link to={`/`} className="w-fit h-fit bg-red">
               <img src="../../../public/assets/Profile Section Icons/profile.png" alt="user profile" className="w-9 h-9 mr-3 my-2" />
@@ -43,7 +45,9 @@ export default function PostComponent() {
 
             <div className="flex flex-col">
               <Link to={`/`} className="w-fit h-fit ">
-                <div className="my-auto font-semibold">{post.userId}</div>
+                <div className="my-auto font-semibold">
+                  <UserName userId={post.userId} />
+                </div>
               </Link>
               <div className="flex items-center">
                 <Link to={`/`} className="w-fit h-fit ">
@@ -86,7 +90,7 @@ export default function PostComponent() {
           <div className="border w-[97%] mx-auto mb-2"></div>
 
           <div className="flex h-1/2 items-center justify-around">
-            <div className="w-[30%] h-[90%] flex justify-center items-center">
+            <div className="w-[30%] h-[90%] flex justify-center items-center" onClick={() => props.likePost(post)}>
               <img src="../../../public/assets/Post Component/like outline.png" alt="" className="h-7 w-7 mx-3" />
               <div className="w-fit text-center">Like</div>
             </div>
@@ -102,5 +106,28 @@ export default function PostComponent() {
         </div>
       ))}
     </div>
+  );
+}
+
+// Define a new component to fetch and display user name
+function UserName({ userId }: { userId: string }) {
+  const {
+    loading,
+    error,
+    data: userData,
+  } = useQuery(GetUserQuery, {
+    variables: { id: userId },
+  });
+
+  if (loading) return <p>Loading user name...</p>;
+
+  if (error) return <p>Error: {error.message}</p>;
+
+  const user = userData.getUser;
+
+  return (
+    <span>
+      {user.firstName} {user.surName}
+    </span>
   );
 }

@@ -1,0 +1,23 @@
+type Like {
+  likeId: ID!
+  postId: ID!
+  userId: ID!
+}
+
+input NewLike {
+  postId: ID!
+  userId: ID!
+}
+
+# query untuk get data
+extend type Query {
+  getPostLikes(postId: ID!): [Like]!
+  getUserLikes(userId: ID!): [Like]!
+  getLikePost(likeId: ID!): Like!
+}
+
+# mutation untuk ubah data
+extend type Mutation {
+  createLikePost(newLike: NewLike!): Like!
+  deleteLikePost(likeId: ID!): Like!
+}
