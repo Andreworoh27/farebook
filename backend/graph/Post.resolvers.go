@@ -68,8 +68,17 @@ func (r *queryResolver) GetUserPost(ctx context.Context, userID string) ([]*mode
 
 // GetAllPublicPost is the resolver for the getAllPublicPost field.
 func (r *queryResolver) GetAllPublicPost(ctx context.Context) ([]*model.Post, error) {
-	var publicPost []*model.Post
-	return publicPost, r.DB.Find(&publicPost, "visibility_type = ?", "Public").Error
+	var publicPosts []*model.Post
+	db := r.DB
+
+	// Query and order the posts by date in descending order (most recent first)
+	err := db.Where("visibility_type = ?", "Public").Order("TO_TIMESTAMP(post_date, 'DD-MM-YYYY HH24:MI') DESC").Find(&publicPosts).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return publicPosts, nil
 }
 
 // GetAllPost is the resolver for the getAllPost field.

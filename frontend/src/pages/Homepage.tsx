@@ -111,15 +111,24 @@ export default function HomePage() {
             // Handle errors if the update fails
             console.error("Error updating post:", updateError);
           });
-        // window.location.reload();
       })
       .catch((error) => {
         // Handle errors if the like fails
         console.error("Error liking post. post id :", error);
+        let id = "";
+
+        if (typeof error.message === "string") {
+          const parts = error.message.split(" ");
+          id = parts[parts.length - 1]; // Get the last part, which should be the ID
+
+          console.log(id); // This will print the ID
+        } else {
+          console.error("Error message is not a string:", error.message);
+        }
 
         deleteLikePost({
           variables: {
-            likeid: error,
+            likeId: id,
           },
         });
 
@@ -147,6 +156,7 @@ export default function HomePage() {
             console.error("Error updating post:", updateError);
           });
       });
+    window.location.reload();
   };
 
   // Render the component only when user data is available

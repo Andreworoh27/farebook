@@ -41,6 +41,7 @@ func (r *mutationResolver) CreateLikePost(ctx context.Context, newLike model.New
 
 // DeleteLikePost is the resolver for the deleteLikePost field.
 func (r *mutationResolver) DeleteLikePost(ctx context.Context, likeID string) (*model.Like, error) {
+	log.Println("trigger delete like with id : ", likeID)
 	var like *model.Like
 	if err := r.DB.First(&like, "like_id = ?", likeID).Error; err != nil {
 		return nil, err
