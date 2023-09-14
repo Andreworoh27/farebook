@@ -1,19 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GetAllPublicPostQuery, GetUserQuery } from "../../queries/Queries";
 import { Link } from "react-router-dom";
-
-interface Post {
-  postId: string;
-  userId: string;
-  video: string | null;
-  photo: string | null;
-  text: string;
-  postDate: string;
-  visibilityType: string;
-  numberOfLikes: number;
-  numberOfShares: number;
-  numberOfComments: number;
-}
+import { Post } from "../../utils/Interfaces";
 
 interface PostComponentProps {
   likePost: (currentPost: Post) => void;
@@ -32,14 +20,6 @@ export default function PostComponent(props: PostComponentProps) {
   }
 
   const posts: Post[] = data.getAllPublicPost;
-  // Sort the posts by postDate in descending order (most recent first)
-  // const posts: Post[] = data.getAllPublicPost.sort((a: Post, b: Post) => {
-  //   const dateA = new Date(`${a.postDate.substring(6, 10)}-${a.postDate.substring(3, 5)}-${a.postDate.substring(0, 2)}T${a.postDate.substring(11)}`);
-  //   const dateB = new Date(`${b.postDate.substring(6, 10)}-${b.postDate.substring(3, 5)}-${b.postDate.substring(0, 2)}T${b.postDate.substring(11)}`);
-
-  //   return dateB.getTime() - dateA.getTime();
-  // });
-  // console.log(posts);
 
   return (
     <div className="mt-3 w-full flex flex-col items-center">

@@ -9,30 +9,7 @@ import { GetUserQuery, LikePostQuery, UpdatePostQuery, DeleteLikePostQuery } fro
 import UploadPostComponent from "../components/Home/UploadPostComponent";
 import PostComponent from "../components/Home/PostComponent";
 import Modal from "react-modal";
-
-interface User {
-  userid: string;
-  firstName: string;
-  surName: string;
-  email: string;
-  mobileNumber: string;
-  dob: string;
-  profilePicture: string;
-  gender: string;
-}
-
-interface Post {
-  postId: string;
-  userId: string;
-  video: string | null;
-  photo: string | null;
-  text: string;
-  postDate: string;
-  visibilityType: string;
-  numberOfLikes: number;
-  numberOfShares: number;
-  numberOfComments: number;
-}
+import { Post, User } from "../utils/Interfaces";
 
 Modal.setAppElement("#root"); // Assuming "#root" is the ID of your root element
 

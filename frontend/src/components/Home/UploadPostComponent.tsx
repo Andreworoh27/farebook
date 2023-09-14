@@ -1,19 +1,9 @@
 import PropTypes from "prop-types"; // Import PropTypes
 import Modal from "react-modal";
 import { useState } from "react";
-import CreatePostComponent from "../post/CreatePostComponent";
 import { useNavigate } from "react-router-dom";
-
-interface User {
-  userid: string;
-  firstName: string;
-  surName: string;
-  email: string | null;
-  mobileNumber: string | null;
-  dob: string;
-  profilePicture: string | null;
-  gender: string;
-}
+import { User } from "../../utils/Interfaces";
+import ModalMountingComponent from "../common/ModalComponent";
 
 interface UploadPostComponentProps {
   user: User | null; // Define the type of 'user'
@@ -40,16 +30,7 @@ export default function UploadPostComponent({ user }: UploadPostComponentProps) 
   return (
     <div className="flex flex-col w-4/5  h-28 border rounded-xl justify-center bg-white shadow-sm py-2">
       <Modal isOpen={isModalOpen} onRequestClose={closeModal} className="modal " overlayClassName="modal-overlay" contentLabel="Example Modal">
-        <div className="mx-auto bg-white p-2 rounded-lg">
-          <div className="flex items-center justify-between">
-            <div className="font-bold text-2xl  flex-grow text-center">Create Post</div>
-            <div onClick={closeModal} className="flex items-center justify-center bg-[#E4E6EB] w-10 h-10 rounded-full">
-              X
-            </div>
-          </div>
-        </div>
-        <div className="border my-2"></div>
-        <CreatePostComponent user={user} closeModal={closeModal} />
+        <ModalMountingComponent isOpen={isModalOpen} closeModal={closeModal} user={user} />
       </Modal>
 
       <div className="flex h-1/2 p-2 items-center justify-evenly">

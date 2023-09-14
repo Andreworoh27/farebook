@@ -3,17 +3,7 @@ import PropTypes from "prop-types";
 import VisibilitySelectorComponent from "./VisibilitySelectorComponent";
 import { useMutation } from "@apollo/client";
 import { AddNewPostQuery } from "../../queries/Queries";
-
-interface User {
-  userid: string;
-  firstName: string;
-  surName: string;
-  email: string | null;
-  mobileNumber: string | null;
-  dob: string;
-  profilePicture: string | null;
-  gender: string;
-}
+import { User } from "../../utils/Interfaces";
 
 interface UploadPostComponentProps {
   user: User | null;
